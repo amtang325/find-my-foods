@@ -2,9 +2,12 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const cors = require('cors')
+const friendRoute = require('./routes/friendRoute.js')
 
 const app = express()
 app.use(cors())
+
+app.use('/friend', friendRoute);
 
 app.get('/', (req, res) => {
     res.status(200).json({"message":"hello!"})
