@@ -42,3 +42,23 @@ fetch("https://jsonplaceholder.typicode.com/users")
 //             return { name: user.name, email: user.email, element: card }
 //         })
 //     })
+
+// function Search() {
+//     return(
+//         <body>
+//             <div class="search-wrapper">
+//                 <label for="search">Search Users</label>
+//                 <input type="search" id="search" data-search />
+//             </div>
+//             <div class="user-cards" data-user-cards-container></div>
+//             <template data-user-template>
+//                 <div class="card">
+//                     <div class="header" data-header></div>
+//                     <div class="body" data-body></div>
+//                 </div>
+//             </template>
+//         </body>
+//     );
+// }
+
+// export default Search;
