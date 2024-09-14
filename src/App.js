@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useRef, useEffect, useState } from "react";
+import Map, { Marker } from "react-map-gl";
+import NavComponent from "./components/NavComponent";
+import MapComponent from "./components/MapComponent";
+import "bulma/css/bulma.min.css";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavComponent />
+      <MapComponent />
     </div>
   );
 }
