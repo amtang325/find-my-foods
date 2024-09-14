@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import "bulma/css/bulma.min.css";
 
@@ -13,14 +13,51 @@ function MapComponent() {
   const [markers, setMarkers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
 
   const [markerTitle, setMarkerTitle] = useState("");
   const [markerDescription, setMarkerDescription] = useState("");
+
+  const plotCurrentLocation = (position) => {
+    let { coords } = position;
+    setUserLocation({
+      longitude: coords.longitude,
+      latitude: coords.latitude,
+    });
+
+    // setViewState(prevState => ({
+    //   ...prevState,
+    //   longitude: coords.longitude,
+    //   latitude: coords.latitude
+    // })
+    // );
+
+    // Add a marker for the user's location
+    const userMarker = {
+      name: "My Location",
+      description: "You are here",
+      lng: coords.longitude,
+      lat: coords.latitude,
+    };
+
+    setMarkers((prevMarkers) => [...prevMarkers, userMarker]);
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(plotCurrentLocation);
+  });
 
   const handleAddMarker = () => {
     setMarkerTitle(document.getElementById("marker-title").value);
     setMarkerDescription(document.getElementById("marker-description").value);
     setAddMarker(true);
+    setIsModalOpen(false);
+  };
+
+  const handleEditMarker = () => {
+    setMarkerTitle(document.getElementById("marker-title").value);
+    setMarkerDescription(document.getElementById("marker-description").value);
+    setAddMarker(false);
     setIsModalOpen(false);
   };
 
@@ -41,7 +78,7 @@ function MapComponent() {
 
   return (
     <div>
-      <div className="sidebar absolute z-10 top-0 left-0 m-12 rounded-md pointer-events-all">
+      <div className="sidebar absolute z-10 top-0 left-0 m-12 mt-20 rounded-md pointer-events-all">
         <button
           onClick={() => setIsModalOpen(true)}
           className={`button is-success is-rounded ${
