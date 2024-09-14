@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const cors = require('cors')
-const friendRoute = require('./routes/friendRoute.js')
+const friendRoute = require('./routes/friendRoutes.js')
 
 const app = express()
 app.use(cors())

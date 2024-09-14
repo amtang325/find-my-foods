@@ -1,5 +1,5 @@
 
-const Friends = require('../models/friends.js');
+const Friend = require('../models/friend.js');
 const express = require('express');
 const router = express.Router();
 const { users } = require('@clerk/clerk-sdk-node');

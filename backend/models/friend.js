@@ -1,7 +1,8 @@
 // User using the site (includes name, email, password, description, etc.)
 const mongoose = require('mongoose');
+const User = require('./User.js');
 
-const friendsSchema = mongoose.Schema(
+const friendSchema = mongoose.Schema(
     {
         id: {
             type: String,
@@ -17,4 +18,4 @@ const friendsSchema = mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('Friends', friendsSchema);
+module.exports = mongoose.model('Friend', friendSchema);
