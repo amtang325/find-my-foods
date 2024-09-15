@@ -46,7 +46,7 @@ function App() {
           </div>
           <UserButton />
         </SignedIn>
-      </header>
+      </header> 
     </div>
   );
 }

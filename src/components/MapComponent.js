@@ -25,12 +25,12 @@ function MapComponent() {
       latitude: coords.latitude,
     });
 
-    // setViewState(prevState => ({
-    //   ...prevState,
-    //   longitude: coords.longitude,
-    //   latitude: coords.latitude
-    // })
-    // );
+    setViewState(prevState => ({
+      ...prevState,
+      longitude: coords.longitude,
+      latitude: coords.latitude
+    })
+    );
 
     // Add a marker for the user's location
     const userMarker = {
