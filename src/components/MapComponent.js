@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import "bulma/css/bulma.min.css";
-
+import {
+  useUser,
+} from "@clerk/clerk-react";
+import axios from "axios";
 function MapComponent() {
   const [viewState, setViewState] = useState({
     longitude: -71.09,
     latitude: 42.36,
     zoom: 16,
   });
+
+  const { user } = useUser();
 
   const [id, setId] = useState(0);
   const [addMarker, setAddMarker] = useState(false);
@@ -82,7 +87,7 @@ function MapComponent() {
     setIsEditModalOpen(false);
   }
 
-  const handleMapClick = (e) => {
+  const handleMapClick = async (e) => {
     if (addMarker) {
       const newMarker = {
         name: markerTitle,
@@ -90,10 +95,21 @@ function MapComponent() {
         lng: e.lngLat.lng,
         lat: e.lngLat.lat,
         id: id,
+        userId: user.id
       };
       setId(id + 1);
       setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
       setAddMarker(false);
+      
+      try {
+        const response = await axios.post('http://localhost:3000/', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
     } else {
       setSelectedMarker(null);
     }
