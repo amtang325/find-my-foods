@@ -1,3 +1,5 @@
+import "../search.css"
+
 // const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY
 const userCardTemplate = document.querySelector("[data-user-template]")
 const userCardContainer = document.querySelector("[data-user-cards-container]")
@@ -43,22 +45,22 @@ fetch("https://jsonplaceholder.typicode.com/users")
 //         })
 //     })
 
-// function Search() {
-//     return(
-//         <body>
-//             <div class="search-wrapper">
-//                 <label for="search">Search Users</label>
-//                 <input type="search" id="search" data-search />
-//             </div>
-//             <div class="user-cards" data-user-cards-container></div>
-//             <template data-user-template>
-//                 <div class="card">
-//                     <div class="header" data-header></div>
-//                     <div class="body" data-body></div>
-//                 </div>
-//             </template>
-//         </body>
-//     );
-// }
+function Search() {
+    return (
+        <body>
+            <div class="search-wrapper">
+                <label for="search">Search Users</label>
+                <input type="search" id="search" data-search />
+            </div>
+            <div class="user-cards" data-user-cards-container></div>
+            <template data-user-template>
+                <div class="card">
+                    <div class="header" data-header></div>
+                    <div class="body" data-body></div>
+                </div>
+            </template>
+        </body>
+    );
+}
 
-// export default Search;
+export default Search;
