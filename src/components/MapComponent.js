@@ -64,14 +64,21 @@ function MapComponent() {
     setEditMarkerId(id);
   };
 
+  const handleDeleteMarker = (id) => {
+    setMarkers(oldValues => {
+      return oldValues.filter(marker => marker.id !== id);
+    })
+    setSelectedMarker(null);
+  };
+
   const updateSelectedMarker = () => {
-    setEditMarkerTitle(document.getElementById("edit-marker-title").value);
-    setEditMarkerDescription(document.getElementById("edit-marker-description").value);
+    // setEditMarkerTitle(document.getElementById("edit-marker-title").value);
+    // setEditMarkerDescription(document.getElementById("edit-marker-description").value);
 
-    console.log(editMarkerTitle, editMarkerDescription);
+    // console.log(editMarkerTitle, editMarkerDescription);
 
-    markers[editMarkerId].name = editMarkerTitle;
-    markers[editMarkerId].description = editMarkerDescription;
+    selectedMarker.name = document.getElementById("edit-marker-title").value;
+    selectedMarker.description = document.getElementById("edit-marker-description").value;
     setIsEditModalOpen(false);
   }
 
@@ -147,7 +154,7 @@ function MapComponent() {
                     Edit
                   </button>
                   <button
-                    onClick={() => setIsAddModalOpen(true)}
+                    onClick={() => handleDeleteMarker(selectedMarker.id)}
                     className="button is-danger is-small is-rounded ml-1"
                   >
                     Delete
