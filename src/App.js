@@ -1,9 +1,16 @@
 import "./App.css";
 import axios from 'axios';
 import React, { useRef, useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Map, { Marker } from "react-map-gl";
 import NavComponent from "./components/NavComponent";
 import MapComponent from "./components/MapComponent";
+import HomeComponent from "./components/HomeComponent";
+import SearchComponent from "./components/SearchComponent";
 import "bulma/css/bulma.min.css";
 import {
   SignedIn,
@@ -57,20 +64,13 @@ function App() {
   //   }
   // }, []);
   return (
-    <div className="App">
-      <header>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <div>
-          <UserButton />
-            <NavComponent />
-            <MapComponent />
-          </div>
-        </SignedIn>
-      </header> 
-    </div>
+    <Router>
+        <NavComponent />
+        <Routes>
+            <Route exact path="/" element={<HomeComponent />} />
+            <Route path="/friends" element={<SearchComponent />} />
+        </Routes>
+    </Router>
   );
 }
 
