@@ -12,7 +12,19 @@ function HomeComponent() {
     return (
         <div>
             <SignedOut>
-                helloooooo
+                <header>
+                    <h1>Find My Food</h1>
+                </header>
+                <div class="container">
+                    <section id="contact">
+                        <h2>Contact Us</h2>
+                        <p>Have questions or feedback? Reach out to us at <a href="mailto:support@findmyfood.com">support@findmyfood.com</a>.</p>
+                        <p>We are here to assist you with any inquiries you may have. Don't hesitate to get in touch!</p>
+                    </section>
+                </div>
+                <footer>
+                    <p>&copy; 2024 Find My Food. All rights reserved.</p>
+                </footer>
             </SignedOut>
             <SignedIn>
                 <MapComponent />
