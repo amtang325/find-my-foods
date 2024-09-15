@@ -1,4 +1,3 @@
-// User using the site (includes name, email, password, description, etc.)
 const mongoose = require('mongoose');
 const User = require('./User.js');
 
@@ -12,9 +11,6 @@ const friendSchema = mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: User
         }]
-    },
-    {
-        timestamps: true,
     }
 )
 
