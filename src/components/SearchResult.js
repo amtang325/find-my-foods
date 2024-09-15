@@ -4,9 +4,9 @@ export const SearchResult = ({ result }) => {
     return (
         <div
             className="search-result"
-            onClick={(e) => alert(`You selected ${result.name}!`)}
+            onClick={(e) => alert(`You selected ${result.first_name}!`)}
         >
-            {result.name}
+            {result.first_name} {result.last_name}
         </div>
     );
 };

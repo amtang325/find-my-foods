@@ -1,25 +1,41 @@
-import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 import "./SearchBar.css";
+import axios from 'axios';
+import React, { useRef, useEffect, useState } from "react";
 
 export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
+  const [users, setUsers] = useState("");
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/getUsers', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log('users', response.data.users);
+                setUsers(response.data.users)
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        };
+        fetchUsers();
+    }, []);
 
   const fetchData = (value) => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => {
-        const results = json.filter((user) => {
+    console.log("fetching")
+      const results = users.filter((user) => {
           return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
+              value &&
+              user &&
+              (user.first_name || user.last_name) &&
+              (user.first_name.toLowerCase().includes(value.toLowerCase()) || user.last_name.toLowerCase().includes(value.toLowerCase()) || (user.first_name + " " + user.last_name).toLowerCase().includes(value.toLowerCase()))
           );
-        });
-        setResults(results);
       });
+      setResults(results);
   };
 
   const handleChange = (value) => {

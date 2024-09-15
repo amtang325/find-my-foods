@@ -35,21 +35,21 @@ function App() {
     //console.log('user', user);
   }
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/getUsers', {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        console.log('users', response.data.users);
-      } catch (error) {
-        console.error('An error occurred:', error);
-      }
-    };
-    fetchUsers();
-  }, []); //
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3000/getUsers', {
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         }
+  //       });
+  //       console.log('users', response.data.users);
+  //     } catch (error) {
+  //       console.error('An error occurred:', error);
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, []);
 
   // useEffect(() => {
   //   if ("geolocation" in navigator) {
