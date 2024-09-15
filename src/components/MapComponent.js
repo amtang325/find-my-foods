@@ -9,14 +9,19 @@ function MapComponent() {
     zoom: 16,
   });
 
+  const [id, setId] = useState(0);
   const [addMarker, setAddMarker] = useState(false);
   const [markers, setMarkers] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
+  const [editMarkerId, setEditMarkerId] = useState(null);
 
   const [markerTitle, setMarkerTitle] = useState("");
   const [markerDescription, setMarkerDescription] = useState("");
+  const [editMarkerTitle, setEditMarkerTitle] = useState("");
+  const [editMarkerDescription, setEditMarkerDescription] = useState("");
 
   const plotCurrentLocation = (position) => {
     let { coords } = position;
@@ -51,15 +56,24 @@ function MapComponent() {
     setMarkerTitle(document.getElementById("marker-title").value);
     setMarkerDescription(document.getElementById("marker-description").value);
     setAddMarker(true);
-    setIsModalOpen(false);
+    setIsAddModalOpen(false);
   };
 
-  const handleEditMarker = () => {
-    setMarkerTitle(document.getElementById("marker-title").value);
-    setMarkerDescription(document.getElementById("marker-description").value);
-    setAddMarker(false);
-    setIsModalOpen(false);
+  const handleEditMarker = (id) => {
+    setIsEditModalOpen(true);
+    setEditMarkerId(id);
   };
+
+  const updateSelectedMarker = () => {
+    setEditMarkerTitle(document.getElementById("edit-marker-title").value);
+    setEditMarkerDescription(document.getElementById("edit-marker-description").value);
+
+    console.log(editMarkerTitle, editMarkerDescription);
+
+    markers[editMarkerId].name = editMarkerTitle;
+    markers[editMarkerId].description = editMarkerDescription;
+    setIsEditModalOpen(false);
+  }
 
   const handleMapClick = (e) => {
     if (addMarker) {
@@ -68,7 +82,9 @@ function MapComponent() {
         description: markerDescription,
         lng: e.lngLat.lng,
         lat: e.lngLat.lat,
+        id: id,
       };
+      setId(id + 1);
       setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
       setAddMarker(false);
     } else {
@@ -80,7 +96,7 @@ function MapComponent() {
     <div>
       <div className="sidebar absolute z-10 top-0 left-0 m-12 mt-20 rounded-md pointer-events-all">
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsAddModalOpen(true)}
           className={`button is-success is-rounded ${
             addMarker ? "is-loading" : ""
           }`}
@@ -125,13 +141,13 @@ function MapComponent() {
                 </p>
                 <div className="flex justify-between mt-2">
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => handleEditMarker(selectedMarker.id)}
                     className="button is-warning is-small is-rounded mr-1"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsAddModalOpen(true)}
                     className="button is-danger is-small is-rounded ml-1"
                   >
                     Delete
@@ -143,7 +159,7 @@ function MapComponent() {
         </Map>
       </div>
 
-      <div className={`modal ${isModalOpen ? "is-active" : ""}`}>
+      <div className={`modal ${isAddModalOpen ? "is-active" : ""}`}>
         <div className="modal-background"></div>
         <div className="modal-content">
           <div className="box">
@@ -186,7 +202,48 @@ function MapComponent() {
         <button
           className="modal-close is-large"
           aria-label="close"
-          onClick={() => setIsModalOpen(false)}
+          onClick={() => setIsAddModalOpen(false)}
+        ></button>
+      </div>
+
+      <div className={`modal ${isEditModalOpen ? "is-active" : ""}`}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <div className="box">
+            <div className="field">
+              <label className="label">Short Description</label>
+              <div className="control">
+                <input
+                  id="edit-marker-title"
+                  className="input"
+                  type="text"
+                  placeholder="Enter marker title"
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label">Any More Info?</label>
+              <div className="control">
+                <textarea
+                  id="edit-marker-description"
+                  className="textarea"
+                  placeholder="Enter marker description"
+                ></textarea>
+              </div>
+            </div>
+            <div className="field">
+              <div className="control">
+                <button className="button is-success" onClick={updateSelectedMarker}>
+                  Edit Marker
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          className="modal-close is-large"
+          aria-label="close"
+          onClick={() => setIsEditModalOpen(false)}
         ></button>
       </div>
     </div>
