@@ -1,4 +1,5 @@
 import "./App.css";
+import axios from 'axios';
 import React, { useRef, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -16,10 +17,12 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
+  useUser,
 } from "@clerk/clerk-react";
 
 
 function App() {
+  const { user } = useUser();
   useEffect(() => {
     if (!("Notification" in window)) {
       console.log("Browser does not support desktop notification");
@@ -27,6 +30,26 @@ function App() {
       Notification.requestPermission();
     }
   });
+ 
+  if (user) {
+    //console.log('user', user);
+  }
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/getUsers', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log('users', response.data.users);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+    fetchUsers();
+  }, []); //
 
   // useEffect(() => {
   //   if ("geolocation" in navigator) {
