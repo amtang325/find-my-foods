@@ -4,6 +4,13 @@ import Map, { Marker } from "react-map-gl";
 import NavComponent from "./components/NavComponent";
 import MapComponent from "./components/MapComponent";
 import "bulma/css/bulma.min.css";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
+
 
 function App() {
   useEffect(() => {
@@ -27,9 +34,19 @@ function App() {
   //   }
   // }, []);
   return (
-    <div>
-      <NavComponent />
-      <MapComponent />
+    <div className="App">
+      <header>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <div>
+            <NavComponent />
+            <MapComponent />
+          </div>
+          <UserButton />
+        </SignedIn>
+      </header>
     </div>
   );
 }
